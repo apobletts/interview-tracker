@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+  <h2 class="text-center">Upcoming Interviews</h2>
+  <div class="text-center">
+    <a href="/create" title="Create New Interview">
+      <button class="btn btn-outline-secondary">Create New Interview</button>
+    </a>
+  </div>
+  {% if posts %}
+  <div class="interviews">
+      <ul>
+        {% for post in posts %}
+          <div class="row">
+            <div class="offset-sm-2 col-sm-8">
+              <li>
+                <a href="/{{ interview.company }}" title="{{ post.company }}">{{ post.company }} <span>&nbsp; at {{ post.interview_stage }}</span></a>
+                <form class="hidden" method="post" action="/{{ post.id }}/delete">
+                  <button class="btn btn-outline-danger delete">Delete</button>
+                </form>
+                <a href="/{{ post.id }}/edit" title="{{ post.title }}">
+                  <button class="btn btn-outline-secondary">Edit</button>
+                </a>
+              </li>
+            </div>
+          </div>
+        {% endfor %}
+      </ul>
+    </div>
+  {% else %}
+    <p class="empty text-center">There are no upcoming interviews</p>
+  {% endif %}
+  <h2 class="text-center">Active Interview Processes</h2>
+  {% if posts %}
+    <div class="interviews">
+      <ul>
+        {% for process in processes %}
+          <div class="row">
+            <div class="offset-sm-2 col-sm-8">
+              <li>
+                <a href="/{{ interview.company }}" title="{{ post.company }}">{{
+post.company }} <span>&nbsp; by {{ post.interview_stage }}</span></a>
+              </li>
+            </div>
+          </div>
+        {% endfor %}
+      </ul>
+    </div>
+  {% else %}
+    <p class="empty text-center">There are no upcoming interviews</p>
+  {% endif %}
+{% endblock %}
